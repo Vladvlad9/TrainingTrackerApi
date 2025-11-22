@@ -1,0 +1,31 @@
+# Системные файлы
+.DS_Store
+Thumbs.db
+
+# Версионный контроль
+.git
+.gitignore
+
+# Логи и временные файлы
+*.log
+tmp/
+*.tmp
+
+# IDE и редакторы
+.vscode/
+.idea/
+
+# Кэш и билд-артефакты
+__pycache__/
+*.pyc
+node_modules/
+dist/
+build/
+.cache/
+
+# Секреты и конфиги
+.env
+.env.local
+
+# Папка с данными, которую исключаем
+data/
