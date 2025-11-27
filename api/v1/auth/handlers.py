@@ -3,5 +3,5 @@ from fastapi import APIRouter
 router = APIRouter(tags=["Auth"])
 
 @router.get("/")
-async def test():
+async def tests():
     return {"test": "test"}
