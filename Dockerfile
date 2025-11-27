@@ -1,4 +1,4 @@
-FROM python:3.12.7-slim
+FROM python:3.13-slim
 
 WORKDIR /opt
 
@@ -18,4 +18,4 @@ RUN uv sync --frozen --no-dev
 
 COPY . /opt
 
-CMD ["sh", "-c", "alembic upgrade head && python -m server"]
+CMD ["sh", "-c", "uv run python -m server"]
