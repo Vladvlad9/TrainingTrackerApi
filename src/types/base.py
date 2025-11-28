@@ -36,7 +36,6 @@ class DTO(BaseModel):
         # Именование
         alias_generator=to_camel,
         regex_engine="python-re",
-
     )
 
 
