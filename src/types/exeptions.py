@@ -8,3 +8,6 @@ class ToManyRequestsErrorDTO(ImmutableDTO):
 
 class HTTPExceptionErrorDTO(ImmutableDTO):
     detail: str = "something_went_wrong"
+
+class IncorrectPasswordErrorDTO(ImmutableDTO):
+    detail: Literal["incorrect_password"] = "incorrect_password"
