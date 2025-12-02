@@ -24,7 +24,7 @@ router = APIRouter(tags=["Auth"])
         status.HTTP_500_INTERNAL_SERVER_ERROR: {"model": HTTPExceptionErrorDTO},
     }
 )
-async def sign_up(data: SignUpRequestDTO, service: AuthServiceDepends) -> AccountDetailResponseDTO:
+async def sign_up(data: SignUpRequestDTO, service: AuthServiceDepends) -> None:
     return await service.sign_up(data=data)
 
 
