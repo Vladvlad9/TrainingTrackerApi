@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from starlette import status
 
 from api.dependencies.services.auth import AuthServiceDepends
+from src.types import TokenPairDTO
 from src.types.auth import SignUpRequestDTO, SignInRequestDTO
 from src.types.exeptions import (
     ToManyRequestsErrorDTO,
@@ -28,7 +29,7 @@ async def sign_up(data: SignUpRequestDTO, service: AuthServiceDepends) -> None:
 
 @router.post(
     path="/signin",
-    response_model=None,
+    response_model=TokenPairDTO,
     status_code=status.HTTP_201_CREATED,
     summary="Вход",
     responses={
@@ -38,5 +39,5 @@ async def sign_up(data: SignUpRequestDTO, service: AuthServiceDepends) -> None:
         status.HTTP_500_INTERNAL_SERVER_ERROR: {"model": HTTPExceptionErrorDTO},
     },
 )
-async def sign_in(data: SignInRequestDTO, service: AuthServiceDepends):
+async def sign_in(data: SignInRequestDTO, service: AuthServiceDepends) -> TokenPairDTO:
     return await service.sign_in(data=data)
