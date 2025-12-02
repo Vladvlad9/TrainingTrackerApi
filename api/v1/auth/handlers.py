@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 from starlette import status
 
+from api.dependencies.services.auth import AuthServiceDepends
 from src.types.auth.sign_up import SignUpRequestDTO
 from src.types.auth.sing_in import SignInRequestDTO
 from src.types.exeptions import (
@@ -22,8 +23,8 @@ router = APIRouter(tags=["Auth"])
         status.HTTP_500_INTERNAL_SERVER_ERROR: {"model": HTTPExceptionErrorDTO},
     }
 )
-async def sign_up(data: SignUpRequestDTO) -> None:
-    pass
+async def sign_up(data: SignUpRequestDTO, service: AuthServiceDepends):
+    return service.sign_up(data=data)
 
 
 @router.post(
@@ -38,5 +39,5 @@ async def sign_up(data: SignUpRequestDTO) -> None:
         status.HTTP_500_INTERNAL_SERVER_ERROR: {"model": HTTPExceptionErrorDTO},
     },
 )
-async def sign_in(data: SignInRequestDTO) -> None:
-    pass
+async def sign_in(data: SignInRequestDTO, service: AuthServiceDepends):
+    return await service.sign_in(data=data)
