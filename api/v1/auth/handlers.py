@@ -41,3 +41,4 @@ async def sign_up(data: SignUpRequestDTO, service: AuthServiceDepends):
 )
 async def sign_in(data: SignInRequestDTO, service: AuthServiceDepends):
     return await service.sign_in(data=data)
+
