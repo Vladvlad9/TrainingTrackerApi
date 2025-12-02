@@ -2,9 +2,7 @@ from fastapi import APIRouter
 from starlette import status
 
 from api.dependencies.services.auth import AuthServiceDepends
-from src.types.account import AccountDetailResponseDTO
-from src.types.auth.sign_up import SignUpRequestDTO
-from src.types.auth.sing_in import SignInRequestDTO
+from src.types.auth import SignUpRequestDTO, SignInRequestDTO
 from src.types.exeptions import (
     ToManyRequestsErrorDTO,
     HTTPExceptionErrorDTO,
@@ -42,4 +40,3 @@ async def sign_up(data: SignUpRequestDTO, service: AuthServiceDepends) -> None:
 )
 async def sign_in(data: SignInRequestDTO, service: AuthServiceDepends):
     return await service.sign_in(data=data)
-

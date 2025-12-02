@@ -14,7 +14,7 @@ class AuthService:
         self.repo = AccountRepo(session=session)
 
     async def sign_in(self, data: SignInRequestDTO) -> TokenPairDTO:
-        account = await self.repo.get(filters=[Account.email == data.email])
+        account = await self.repo.get(filters=[Account.email == data.email.lower()])
         if not account:
             raise ObjectNotFoundError(name="account")
 
@@ -25,7 +25,7 @@ class AuthService:
 
     async def sign_up(self, data: SignUpRequestDTO) -> Account:
         account_data = data.model_dump(exclude={"password"})
-        account_data["email"] = data.email
+        account_data["email"] = data.email.lower()
         account_data["password_hash"] = PasswordManager.hash(plain_password=data.password)
         try:
             return await self.repo.insert(obj=account_data)
