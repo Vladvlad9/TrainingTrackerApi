@@ -1,8 +1,8 @@
-"""001_create table account
+"""create table account
 
-Revision ID: 19f7188ddd8a
+Revision ID: b6ea1a476e07
 Revises: 
-Create Date: 2025-11-27 20:03:28.219984
+Create Date: 2025-12-02 18:52:51.717611
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '19f7188ddd8a'
+revision: str = 'b6ea1a476e07'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -25,7 +25,7 @@ def upgrade() -> None:
     sa.Column('email', sa.String(length=254), nullable=False),
     sa.Column('password_hash', sa.String(length=128), nullable=True),
     sa.Column('created_at', sa.TIMESTAMP(timezone=True), nullable=False, comment='Date of created'),
-    sa.Column('update_at', sa.TIMESTAMP(timezone=True), nullable=False, comment='Date of last updated'),
+    sa.Column('update_at', sa.TIMESTAMP(timezone=True), nullable=True, comment='Date of last updated'),
     sa.CheckConstraint("email ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$'", name='email_format'),
     sa.CheckConstraint('length(email) >= 5', name='email_min_length'),
     sa.PrimaryKeyConstraint('id'),

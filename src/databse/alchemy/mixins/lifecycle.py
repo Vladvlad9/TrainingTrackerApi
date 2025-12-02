@@ -19,6 +19,6 @@ class LifecycleMixin:
     update_at: Mapped[datetime] = mapped_column(
         TIMESTAMP(timezone=True),
         onupdate=now,
-        nullable=False,
+        nullable=True,
         comment="Date of last updated",
     )

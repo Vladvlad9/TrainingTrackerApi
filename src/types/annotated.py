@@ -2,13 +2,13 @@ import re
 
 from typing import Annotated
 
-from pydantic import Field, SecretStr
+from pydantic import Field
 
 __all__ = ["PasswordStr", "JWTStr"]
 
 
 PasswordStr = Annotated[
-    SecretStr,
+    str,
     Field(
         pattern=re.compile(pattern=r"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[!-~]+$"),
         min_length=8,
@@ -17,7 +17,7 @@ PasswordStr = Annotated[
     ),
 ]
 JWTStr = Annotated[
-    SecretStr,
+    str,
     Field(
         examples=[
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9."

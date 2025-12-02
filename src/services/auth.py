@@ -1,14 +1,33 @@
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from src.databse.alchemy.models import Account
+from src.exceptions import ObjectNotFoundError, IncorrectPasswordError, ObjectAlreadyExistError
+from src.repos.alchemy import AccountRepo
 from src.types import SignInRequestDTO, SignUpRequestDTO, TokenPairDTO
+from src.utils.jwt.manager import JWTManager
+from src.utils.password import PasswordManager
 
 
 class AuthService:
     def __init__(self, session: AsyncSession):
-        pass
+        self.repo = AccountRepo(session=session)
 
     async def sign_in(self, data: SignInRequestDTO) -> TokenPairDTO:
-        pass
+        account = await self.repo.get(filters=[Account.email == data.email])
+        if not account:
+            raise ObjectNotFoundError(name="account")
 
-    async def sign_up(self, data: SignUpRequestDTO):
-        pass
+        if not PasswordManager.check(plain_password=data.password, password_hash=account.password_hash):
+            raise IncorrectPasswordError()
+
+        return TokenPairDTO.model_validate(obj=await JWTManager.create_token_pair(user_id=account.id))
+
+    async def sign_up(self, data: SignUpRequestDTO) -> Account:
+        account_data = data.model_dump(exclude={"password"})
+        account_data["email"] = data.email
+        account_data["password_hash"] = PasswordManager.hash(plain_password=data.password)
+        try:
+            return await self.repo.insert(obj=account_data)
+        except IntegrityError:
+            raise ObjectAlreadyExistError(name="account")
