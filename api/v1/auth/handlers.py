@@ -2,7 +2,6 @@ from fastapi import APIRouter
 from starlette import status
 
 from api.dependencies.services.auth import AuthServiceDepends
-from src.databse.alchemy.models import Account
 from src.types.account import AccountDetailResponseDTO
 from src.types.auth.sign_up import SignUpRequestDTO
 from src.types.auth.sing_in import SignInRequestDTO
