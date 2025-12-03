@@ -14,5 +14,7 @@ class AccountDetailResponseDTO(ImmutableDTO):
     email: EmailStr
     password: PasswordStr
 
+    username: str
+
     created_at: datetime
     updated_at: datetime | None
