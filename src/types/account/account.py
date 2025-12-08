@@ -3,18 +3,26 @@ from uuid import UUID
 
 from pydantic import EmailStr
 
-from src.types.annotated import PasswordStr
 from src.types.base import ImmutableDTO
 
-__all__ = ["AccountDetailResponseDTO"]
+__all__ = ["AccountDetailResponseDTO", "AccountResponseIdDTO", "AccountUpdateRequestDTO"]
+
+
+class AccountResponseIdDTO(ImmutableDTO):
+    id: UUID
+
+
+class AccountUpdateRequestDTO(ImmutableDTO):
+    username: str
+    email: EmailStr
 
 
 class AccountDetailResponseDTO(ImmutableDTO):
     id: UUID
     email: EmailStr
-    password: PasswordStr
+    # password_hash: PasswordStr = Field(alias="password")
 
     username: str
 
     created_at: datetime
-    updated_at: datetime | None
+    update_at: datetime | None
