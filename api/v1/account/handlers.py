@@ -1,10 +1,12 @@
 from fastapi import APIRouter
 from starlette import status
+from starlette.status import HTTP_500_INTERNAL_SERVER_ERROR, HTTP_429_TOO_MANY_REQUESTS
 
 from api.annotated_types import AccountID
 from api.dependencies.services.account import AccountServiceDepends
 from api.dependencies.services.auth import AuthenticateHeaderDeps, CurrentUserIDDeps
 from src.types.account import AccountDetailResponseDTO, AccountUpdateRequestDTO
+from src.types.exeptions import HTTPExceptionErrorDTO, ToManyRequestsErrorDTO
 
 router = APIRouter(tags=["Account"], dependencies=[AuthenticateHeaderDeps])
 
@@ -29,6 +31,11 @@ async def detail_account(service: AccountServiceDepends, account_id: AccountID):
 @router.patch(
     path="/{id}",
     response_model=AccountDetailResponseDTO,
+    status_code=status.HTTP_202_ACCEPTED,
+    responses={
+        HTTP_500_INTERNAL_SERVER_ERROR: {"model": HTTPExceptionErrorDTO},
+        HTTP_429_TOO_MANY_REQUESTS: {"model": ToManyRequestsErrorDTO},
+    },
 )
 async def update_account(service: AccountServiceDepends, data: AccountUpdateRequestDTO, account_id: AccountID):
     return await service.path(account_id=account_id, data=data)
