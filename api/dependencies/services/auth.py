@@ -47,4 +47,4 @@ async def _current_user_id(token_payload: TokenPayloadDepends):
 
 CurrentUserIDDeps = Annotated[UUID, Depends(dependency=_current_user_id)]
 
-AuthenticateHeaderDeps = Depends(dependency=_authenticate)
+AuthenticateHeaderDepends = Depends(dependency=_authenticate)

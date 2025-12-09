@@ -35,4 +35,4 @@ class RESTAuthService:
 
     @auth_exception_handler()
     async def sign_up(self, data: SignUpRequestDTO):
-        a =  await self._auth_service.sign_up(data=data)
+        return await self._auth_service.sign_up(data=data)

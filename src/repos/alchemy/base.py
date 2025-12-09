@@ -1,7 +1,7 @@
 from abc import ABC
-from typing import TypeVar, Generic, Any
+from typing import TypeVar, Generic, Any, Sequence
 
-from sqlalchemy import select, insert, update, delete
+from sqlalchemy import select, insert, update, delete, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import DeclarativeBase
 
@@ -37,4 +37,29 @@ class BaseRepo(ABC, Generic[ModelType]):
         result = await self._session.execute(statement)
         await self._session.commit()
         return result.scalar_one_or_none()
+
+    async def count(
+            self,
+            filters: list[Any] | None = None,
+    ) -> int:
+        statement = select(func.count(self._model.id))
+        if filters:
+            statement = statement.filter(*filters)
+        return await self._session.scalar(statement=statement)
+
+    async def list_data(
+            self,
+            page: int,
+            page_size: int,
+            options: list[Any] | None = None,
+            filters: list[Any] | None = None,
+    ) -> Sequence[Any | ModelType]:
+        statement = select(self._model)
+        if options:
+            statement = statement.options(*options)
+        if filters:
+            statement = statement.filter(*filters)
+        statement = statement.offset(page * page_size - page_size).limit(page_size)
+        result = await self._session.scalars(statement=statement)
+        return result.unique().all()
 

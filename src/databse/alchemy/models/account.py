@@ -8,6 +8,7 @@ from src.databse.alchemy.models.base import Base
 
 __all__ = ["Account"]
 
+
 class Account(Base, LifecycleMixin):
     __table_args__ = (
         CheckConstraint(sqltext="length(email) >= 5", name="email_min_length"),
@@ -24,6 +25,9 @@ class Account(Base, LifecycleMixin):
     password_hash: Mapped[str] = mapped_column(String(128), nullable=True)
 
     username: Mapped[str] = mapped_column(VARCHAR(50), server_default=f"User_{str(uuid4())}", unique=True)
+
+    def __repr__(self) -> str:
+        return f"<Account(id={self.id}, email='{self.email}', username='{self.username}')>"
 
     def __str__(self) -> str:
         return f"Account {self.email}"

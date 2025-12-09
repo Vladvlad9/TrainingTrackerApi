@@ -3,12 +3,11 @@ from starlette import status
 from starlette.status import HTTP_500_INTERNAL_SERVER_ERROR, HTTP_429_TOO_MANY_REQUESTS
 
 from api.annotated_types import AccountID
-from api.dependencies.services.account import AccountServiceDepends
-from api.dependencies.services.auth import AuthenticateHeaderDeps, CurrentUserIDDeps
+from api.dependencies.services import AccountServiceDepends, AuthenticateHeaderDepends, CurrentUserIDDeps
 from src.types.account import AccountDetailResponseDTO, AccountUpdateRequestDTO
 from src.types.exeptions import HTTPExceptionErrorDTO, ToManyRequestsErrorDTO
 
-router = APIRouter(tags=["Account"], dependencies=[AuthenticateHeaderDeps])
+router = APIRouter(tags=["Account"], dependencies=[AuthenticateHeaderDepends])
 
 
 @router.get(
