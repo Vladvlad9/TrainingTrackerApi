@@ -17,6 +17,5 @@ def get_application() -> FastAPI:
         openapi_tags=TAGS_METADATA
     )
 
-
     include_routers(app)
     return app
