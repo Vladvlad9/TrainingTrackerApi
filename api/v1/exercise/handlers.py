@@ -36,23 +36,3 @@ async def get_exercise(service: ExerciseServiceDepends, exercise_id: ExerciseID)
 )
 async def create_exercise(service: ExerciseServiceDepends, data: ExerciseCreateRequestDTO):
     return await service.post(data=data)
-
-
-@router.patch(
-    path="/{id}",
-    status_code=status.HTTP_202_ACCEPTED,
-)
-async def update_exercise(
-        service: ExerciseServiceDepends,
-):
-    pass
-
-
-@router.delete(
-    path="/{id}",
-    status_code=status.HTTP_204_NO_CONTENT,
-)
-async def delete_exercise(
-        service: ExerciseServiceDepends,
-):
-    pass

@@ -17,7 +17,7 @@ async def list_workouts(service: WorkoutServiceDepends):
 
 @router.post(
     path="/",
-    status_code=status.status.HTTP_201_CREATED,
+    status_code=status.HTTP_201_CREATED,
 )
 async def create_workout(workout_id: WorkoutID, service: WorkoutServiceDepends):
     pass
