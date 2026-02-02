@@ -1,7 +1,7 @@
 from uuid import uuid4
 
 from sqlalchemy import CheckConstraint, String, UUID, VARCHAR
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.databse.alchemy.mixins import LifecycleMixin
 from src.databse.alchemy.models.base import Base
@@ -25,6 +25,8 @@ class Account(Base, LifecycleMixin):
     password_hash: Mapped[str] = mapped_column(String(128), nullable=True)
 
     username: Mapped[str] = mapped_column(VARCHAR(50), server_default=f"User_{str(uuid4())}", unique=True)
+
+    workouts = relationship(argument="Workout", back_populates="account", cascade="all, delete-orphan")
 
     def __repr__(self) -> str:
         return f"<Account(id={self.id}, email='{self.email}', username='{self.username}')>"

@@ -1,7 +1,7 @@
 from uuid import uuid4
 
 from sqlalchemy import UUID, VARCHAR, CheckConstraint, Enum
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.databse.alchemy.mixins import LifecycleMixin
 from src.databse.alchemy.models.base import Base
@@ -27,6 +27,12 @@ class Exercise(Base, LifecycleMixin):
     category: Mapped[ExerciseCategory | None] = mapped_column(Enum(ExerciseCategory), nullable=True)
     muscle_group: Mapped[ExerciseMuscleGroups | None] = mapped_column(Enum(ExerciseMuscleGroups), nullable=True)
 
+    exercises = relationship(
+        argument="Exercise",
+        secondary="workout_exercises",
+        back_populates="workouts"
+    )
+
     def __repr__(self) -> str:
         return (f"<Exercise(id={self.id}, "
                 f"name='{self.name}', "
@@ -35,4 +41,4 @@ class Exercise(Base, LifecycleMixin):
                 f"")
 
     def __str__(self) -> str:
-        return self.name
+        return f"Exercise: {self.name}"
