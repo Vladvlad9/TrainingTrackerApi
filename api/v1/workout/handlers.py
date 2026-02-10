@@ -22,7 +22,7 @@ async def list_workouts(service: WorkoutServiceDepends):
     status_code=status.HTTP_201_CREATED,
 )
 async def create_workout(workouts: WorkoutCreateDTO, service: WorkoutServiceDepends):
-    pass
+    return await service.create()
 
 
 @router.get(
@@ -30,7 +30,7 @@ async def create_workout(workouts: WorkoutCreateDTO, service: WorkoutServiceDepe
     status_code=status.HTTP_200_OK
 )
 async def get_workouts(workout_id: WorkoutID, service: WorkoutServiceDepends):
-    pass
+    return await service.get()
 
 
 @router.patch(
@@ -38,7 +38,7 @@ async def get_workouts(workout_id: WorkoutID, service: WorkoutServiceDepends):
     status_code=status.HTTP_202_ACCEPTED,
 )
 async def update_workout(workout_id: WorkoutID, service: WorkoutServiceDepends):
-    pass
+    return await service.update()
 
 
 @router.delete(
@@ -46,4 +46,4 @@ async def update_workout(workout_id: WorkoutID, service: WorkoutServiceDepends):
     status_code=status.HTTP_204_NO_CONTENT
 )
 async def delete_workout(workout_id: WorkoutID, service: WorkoutServiceDepends):
-    pass
+    return await service.delete(workout_id=workout_id)
