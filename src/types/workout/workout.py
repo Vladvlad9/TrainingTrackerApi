@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import List
 from uuid import UUID
 
-from pydantic import Field, field_validator
+from pydantic import Field, field_validator, ConfigDict
 
 from src.enums import WorkoutEnum
 from src.types.annotated_types import (
@@ -17,15 +17,22 @@ from src.types.annotated_types import (
 )
 from src.types.base import ImmutableDTO
 
-__all__ = ["WorkoutExerciseCreateDTO", "WorkoutCreateDTO", "WorkoutBaseDTO"]
+__all__ = ["WorkoutExerciseDTO", "WorkoutCreateDTO", "WorkoutBaseDTO"]
 
 
-class WorkoutExerciseCreateDTO(ImmutableDTO):
+class WorkoutDTO(ImmutableDTO):
+    title: WorkoutTitleTypes
+    note: WorkoutNoteTypes
+    scheduled_at: WorkoutScheduledAtTypes
+    status: WorkoutStatusTypes
+
+
+class WorkoutExerciseDTO(ImmutableDTO):
     exercise_id: UUID
     sets: SetsTypes
     reps: RepsTypes
     weight: WeightTypes
-    duration_minutes: int | None = DurationMinutesTypes
+    duration_minutes: DurationMinutesTypes
 
 
 class WorkoutCreateDTO(ImmutableDTO):
@@ -33,7 +40,7 @@ class WorkoutCreateDTO(ImmutableDTO):
     note: WorkoutNoteTypes
     scheduled_at: WorkoutScheduledAtTypes
     status: WorkoutStatusTypes
-    exercises: List[WorkoutExerciseCreateDTO] = Field(description="Список упражнений")
+    exercises: List[WorkoutExerciseDTO]
 
 
 class WorkoutBaseDTO(WorkoutCreateDTO):

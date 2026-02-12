@@ -8,6 +8,8 @@ from src.services.workout import WorkoutService
 
 __all__ = ["RESTWorkoutService"]
 
+from src.types import WorkoutCreateDTO
+
 workout_exception_handler = ExceptionHandlerFactory(
     exc_mapping={
         ObjectAlreadyExistError: ObjectExistsException(name="workout"),
@@ -29,8 +31,8 @@ class RESTWorkoutService:
         return await self._workout_service.get()
 
     @workout_exception_handler()
-    async def create(self):
-        return await self._workout_service.post()
+    async def create(self, workouts: WorkoutCreateDTO):
+        return await self._workout_service.post(data=workouts)
 
     @workout_exception_handler()
     async def update(self):

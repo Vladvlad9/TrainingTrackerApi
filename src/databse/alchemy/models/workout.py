@@ -33,10 +33,10 @@ class Workout(Base, LifecycleMixin):
     scheduled_at: Mapped[datetime.datetime | None] = mapped_column(TIMESTAMP(timezone=True))
     status: Mapped[WorkoutEnum | None] = mapped_column(Enum(WorkoutEnum), nullable=True)
 
-    account = relationship(argument="Account", back_populates="workouts")
+    # account = relationship(argument="Account", back_populates="workouts")
 
-    workout_exercises = relationship(
-        argument="WorkoutExercise",
+    workout_exercises: Mapped[list["WorkoutExercise"]] = relationship(
+        argument="WorkoutExercise",  # строковое имя класса
         back_populates="workout",
         cascade="all, delete-orphan"
     )

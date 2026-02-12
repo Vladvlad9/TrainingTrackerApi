@@ -72,20 +72,20 @@ WorkoutTitleTypes = Annotated[
         title="Название тренировки",
         description="Название тренировки",
         examples=["Грудь и бицепс"],
-        min_length=3,
-        max_length=15
+        # min_length=3,
+        # max_length=15
     )
 ]
 
 WorkoutNoteTypes = Annotated[
-    int | None,
+    str | None,
     Field(
         default=None,
         title="Заметка",
         description="Заметка",
         examples=["string"],
-        min_length=5,
-        max_length=100
+        # min_length=5,
+        # max_length=100
     )
 ]
 

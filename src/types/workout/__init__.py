@@ -1,3 +1,3 @@
-from .workout import WorkoutExerciseCreateDTO, WorkoutCreateDTO, WorkoutBaseDTO
+from .workout import WorkoutExerciseDTO, WorkoutCreateDTO, WorkoutBaseDTO
 
-__all__ = ["WorkoutExerciseCreateDTO", "WorkoutCreateDTO", "WorkoutBaseDTO"]
+__all__ = ["WorkoutExerciseDTO", "WorkoutCreateDTO", "WorkoutBaseDTO"]

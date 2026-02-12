@@ -3,7 +3,7 @@ from starlette import status
 
 from api.annotated_types import WorkoutID
 from api.dependencies.services import WorkoutServiceDepends
-from src.types import WorkoutExerciseCreateDTO, WorkoutCreateDTO, WorkoutBaseDTO
+from src.types import WorkoutExerciseDTO, WorkoutCreateDTO, WorkoutBaseDTO
 
 router = APIRouter(tags=["Workout"])
 
@@ -22,7 +22,7 @@ async def list_workouts(service: WorkoutServiceDepends):
     status_code=status.HTTP_201_CREATED,
 )
 async def create_workout(workouts: WorkoutCreateDTO, service: WorkoutServiceDepends):
-    return await service.create()
+    return await service.create(workouts=workouts)
 
 
 @router.get(
