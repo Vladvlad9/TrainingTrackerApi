@@ -27,10 +27,10 @@ class Exercise(Base, LifecycleMixin):
     category: Mapped[ExerciseCategory | None] = mapped_column(Enum(ExerciseCategory), nullable=True)
     muscle_group: Mapped[ExerciseMuscleGroups | None] = mapped_column(Enum(ExerciseMuscleGroups), nullable=True)
 
-    exercises = relationship(
-        argument="Exercise",
-        secondary="workout_exercises",
-        back_populates="workouts"
+    workout_exercises: Mapped[list["WorkoutExercise"]] = relationship(
+        argument="WorkoutExercise",  # строковое имя класса
+        back_populates="exercise",
+        cascade="all, delete-orphan"
     )
 
     def __repr__(self) -> str:

@@ -26,7 +26,7 @@ class Account(Base, LifecycleMixin):
 
     username: Mapped[str] = mapped_column(VARCHAR(50), server_default=f"User_{str(uuid4())}", unique=True)
 
-    workouts = relationship(argument="Workout", back_populates="account", cascade="all, delete-orphan")
+    # workouts = relationship(argument="Workout", back_populates="account", cascade="all, delete-orphan")
 
     def __repr__(self) -> str:
         return f"<Account(id={self.id}, email='{self.email}', username='{self.username}')>"

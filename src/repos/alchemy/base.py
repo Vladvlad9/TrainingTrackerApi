@@ -63,3 +63,9 @@ class BaseRepo(ABC, Generic[ModelType]):
         result = await self._session.scalars(statement=statement)
         return result.unique().all()
 
+    async def add_flush_refresh_one(self, obj: dict) -> ModelType:
+        result = await self._session.execute(
+            statement=insert(self._model).values(**obj).returning(self._model)
+        )
+        await self._session.flush()
+        return result.scalar_one_or_none()
