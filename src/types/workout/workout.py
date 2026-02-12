@@ -17,7 +17,7 @@ from src.types.annotated_types import (
 )
 from src.types.base import ImmutableDTO
 
-__all__ = ["WorkoutExerciseDTO", "WorkoutCreateDTO", "WorkoutBaseDTO"]
+__all__ = ["WorkoutExerciseDTO", "WorkoutCreateDTO", "WorkoutUpdateDTO", "WorkoutBaseDTO"]
 
 
 class WorkoutDTO(ImmutableDTO):
@@ -41,6 +41,13 @@ class WorkoutCreateDTO(ImmutableDTO):
     scheduled_at: WorkoutScheduledAtTypes
     status: WorkoutStatusTypes
     exercises: List[WorkoutExerciseDTO]
+
+
+class WorkoutUpdateDTO(ImmutableDTO):
+    title: WorkoutTitleTypes | None = None
+    note: WorkoutNoteTypes | None = None
+    scheduled_at: WorkoutScheduledAtTypes | None = None
+    status: WorkoutStatusTypes | None = None
 
 
 class WorkoutBaseDTO(WorkoutCreateDTO):

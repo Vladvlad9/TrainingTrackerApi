@@ -3,7 +3,7 @@ from src.types.auth.sign_up import SignUpRequestDTO
 from src.types.auth.sing_in import SignInRequestDTO
 from src.types.exercise.exercise import ExerciseCreateRequestDTO, ExerciseFilterDTO, ExerciseDetailResponseDTO
 
-from src.types.workout.workout import WorkoutExerciseDTO, WorkoutCreateDTO, WorkoutBaseDTO
+from src.types.workout.workout import WorkoutExerciseDTO, WorkoutCreateDTO, WorkoutUpdateDTO, WorkoutBaseDTO
 
 from .pagination import Pagination, Paginator
 
@@ -20,6 +20,7 @@ __all__ = [
 
     "WorkoutExerciseDTO",
     "WorkoutCreateDTO",
+    "WorkoutUpdateDTO",
     "WorkoutBaseDTO",
 
     "Pagination",

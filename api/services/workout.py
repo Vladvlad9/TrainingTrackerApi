@@ -8,7 +8,7 @@ from src.services.workout import WorkoutService
 
 __all__ = ["RESTWorkoutService"]
 
-from src.types import WorkoutCreateDTO
+from src.types import WorkoutCreateDTO, WorkoutUpdateDTO, WorkoutBaseDTO
 
 workout_exception_handler = ExceptionHandlerFactory(
     exc_mapping={
@@ -31,12 +31,12 @@ class RESTWorkoutService:
         return await self._workout_service.get()
 
     @workout_exception_handler()
-    async def create(self, workouts: WorkoutCreateDTO):
+    async def create(self, workouts: WorkoutCreateDTO) -> WorkoutBaseDTO:
         return await self._workout_service.post(data=workouts)
 
     @workout_exception_handler()
-    async def update(self):
-        return await self._workout_service.patch()
+    async def update(self, workout_id: UUID4, data: WorkoutUpdateDTO) -> WorkoutBaseDTO:
+        return await self._workout_service.patch(workout_id=workout_id, data=data)
 
     @workout_exception_handler()
     async def delete(self, workout_id: UUID4):
